@@ -1,0 +1,242 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.1.0">
+  <diagram name="Upload Execution Flow" id="execution-flow">
+    <mxGraphModel dx="1426" dy="777" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=16;fontStyle=1;fontFamily=Helvetica;" value="Media Upload Execution Flow" vertex="1">
+          <mxGeometry height="30" width="400" x="400" y="20" as="geometry" />
+        </mxCell>
+        <mxCell id="browser-lane" parent="1" style="swimlane;html=1;startSize=30;fontFamily=Helvetica;fontSize=12;fillColor=#E3F2FD;strokeColor=#1976D2;fontStyle=1" value="Browser" vertex="1">
+          <mxGeometry height="750" width="180" x="80" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="browser-icon" parent="browser-lane" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#505050;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.vvd.web_browser;" value="" vertex="1">
+          <mxGeometry height="57" width="80" x="50" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="api-lane" parent="1" style="swimlane;html=1;startSize=30;fontFamily=Helvetica;fontSize=12;fillColor=#F3E5F5;strokeColor=#7B1FA2;fontStyle=1" value="API Layer" vertex="1">
+          <mxGeometry height="750" width="280" x="260" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="cloudfront-icon" parent="api-lane" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.cloudfront;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="30" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="api-icon" parent="api-lane" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#8C4FFF;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.api_gateway;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="120" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lambda-icon" parent="api-lane" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="210" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="cloudfront-label" parent="api-lane" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontFamily=Helvetica;" value="CloudFront" vertex="1">
+          <mxGeometry height="20" width="80" x="15" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="api-label" parent="api-lane" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontFamily=Helvetica;" value="API Gateway" vertex="1">
+          <mxGeometry height="20" width="80" x="105" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="lambda-label" parent="api-lane" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontFamily=Helvetica;" value="Upload&lt;br&gt;Lambda" vertex="1">
+          <mxGeometry height="30" width="80" x="195" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="storage-lane" parent="1" style="swimlane;html=1;startSize=30;fontFamily=Helvetica;fontSize=12;fillColor=#E8F5E9;strokeColor=#2E7D32;fontStyle=1" value="Storage Layer" vertex="1">
+          <mxGeometry height="750" width="280" x="540" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-icon" parent="storage-lane" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#7AA116;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="35" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="processor-icon" parent="storage-lane" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#ED7100;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.lambda;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="120" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="dynamodb-icon" parent="storage-lane" style="sketch=0;points=[[0,0,0],[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0,0],[0,1,0],[0.25,1,0],[0.5,1,0],[0.75,1,0],[1,1,0],[0,0.25,0],[0,0.5,0],[0,0.75,0],[1,0.25,0],[1,0.5,0],[1,0.75,0]];outlineConnect=0;fontColor=#232F3E;fillColor=#C925D1;strokeColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.dynamodb;" value="" vertex="1">
+          <mxGeometry height="50" width="50" x="205" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-label" parent="storage-lane" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontFamily=Helvetica;" value="S3" vertex="1">
+          <mxGeometry height="20" width="80" x="20" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="processor-label" parent="storage-lane" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontFamily=Helvetica;" value="Processor&lt;br&gt;Lambda" vertex="1">
+          <mxGeometry height="30" width="80" x="105" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="dynamodb-label" parent="storage-lane" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=9;fontFamily=Helvetica;" value="DynamoDB" vertex="1">
+          <mxGeometry height="20" width="80" x="190" y="95" as="geometry" />
+        </mxCell>
+        <mxCell id="browser-lifeline" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#E3F2FD;strokeColor=#1976D2;" value="" vertex="1">
+          <mxGeometry height="580" width="10" x="165" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="cloudfront-lifeline" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#F3E5F5;strokeColor=#7B1FA2;" value="" vertex="1">
+          <mxGeometry height="580" width="10" x="310" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="api-lifeline" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#F3E5F5;strokeColor=#7B1FA2;" value="" vertex="1">
+          <mxGeometry height="580" width="10" x="400" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="lambda-lifeline" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#FFF3E0;strokeColor=#EF6C00;" value="" vertex="1">
+          <mxGeometry height="580" width="10" x="490" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="s3-lifeline" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#E8F5E9;strokeColor=#2E7D32;" value="" vertex="1">
+          <mxGeometry height="580" width="10" x="595" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="processor-lifeline" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#FFF3E0;strokeColor=#EF6C00;" value="" vertex="1">
+          <mxGeometry height="580" width="10" x="680" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="dynamodb-lifeline" parent="1" style="html=1;points=[];perimeter=orthogonalPerimeter;fillColor=#F3E5F5;strokeColor=#7B1FA2;" value="" vertex="1">
+          <mxGeometry height="580" width="10" x="765" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="flow1" edge="1" parent="1" source="browser-lifeline" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1.5;strokeColor=#1976D2;" target="cloudfront-lifeline" value="">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="175" y="230" as="sourcePoint" />
+            <mxPoint x="255" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow1-label" connectable="0" parent="flow1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" value="â‘  POST /api/upload" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow2" edge="1" parent="1" source="cloudfront-lifeline" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1.5;strokeColor=#7B1FA2;" target="api-lifeline" value="">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="320" y="270" as="sourcePoint" />
+            <mxPoint x="400" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow2-label" connectable="0" parent="flow2" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" value="â‘¡ Forward request" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow3" edge="1" parent="1" source="api-lifeline" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1.5;strokeColor=#EF6C00;" target="lambda-lifeline" value="">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="410" y="310" as="sourcePoint" />
+            <mxPoint x="490" y="310" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow3-label" connectable="0" parent="flow3" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" value="â‘¢ Invoke function" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow4" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1.5;strokeColor=#43A047;dashed=1;dashPattern=3 3;" value="">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="500" y="350" as="sourcePoint" />
+            <mxPoint x="595" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow4-label" connectable="0" parent="flow4" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" value="â‘£ Generate pre-signed URL" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow5" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1.5;strokeColor=#AB47BC;" value="">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="500" y="390" as="sourcePoint" />
+            <mxPoint x="765" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow5-label" connectable="0" parent="flow5" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" value="â‘¤ PutItem (status=UPLOADING)" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow6" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1.5;strokeColor=#616161;endFill=0;" value="">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="490" y="430" as="sourcePoint" />
+            <mxPoint x="175" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow6-label" connectable="0" parent="flow6" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" value="â‘¥ Return {uploadUrl, mediaId}" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint y="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow7" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=2;strokeColor=#43A047;" value="">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="175" y="490" as="sourcePoint" />
+            <mxPoint x="595" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow7-label" connectable="0" parent="flow7" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#ffffff;fontStyle=1" value="â‘¦ PUT /bucket/key (file data)" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow8" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=open;dashed=1;strokeWidth=1.5;strokeColor=#43A047;endFill=0;" value="">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="595" y="530" as="sourcePoint" />
+            <mxPoint x="175" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow8-label" connectable="0" parent="flow8" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" value="â‘§ 200 OK" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint y="10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow9" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1.5;strokeColor=#689F38;" value="">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="605" y="590" as="sourcePoint" />
+            <mxPoint x="680" y="590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow9-label" connectable="0" parent="flow9" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" value="â‘¨ ObjectCreated event" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow10" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1.5;strokeColor=#689F38;dashed=1;dashPattern=3 3;" value="">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="680" y="630" as="sourcePoint" />
+            <mxPoint x="605" y="630" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow10-label" connectable="0" parent="flow10" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" value="â‘© HeadObject (get size/type)" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint y="-10" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow11" edge="1" parent="1" style="html=1;verticalAlign=bottom;endArrow=block;strokeWidth=1.5;strokeColor=#AB47BC;" value="">
+          <mxGeometry relative="1" width="80" as="geometry">
+            <mxPoint x="690" y="680" as="sourcePoint" />
+            <mxPoint x="765" y="680" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="flow11-label" connectable="0" parent="flow11" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;fontFamily=Helvetica;labelBackgroundColor=#ffffff;" value="â‘ª UpdateItem&lt;br&gt;(status=READY + metadata)" vertex="1">
+          <mxGeometry relative="1" x="-0.1" y="1" as="geometry">
+            <mxPoint x="5" y="-18" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="complete-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#C8E6C9;strokeColor=#2E7D32;fontSize=11;fontFamily=Helvetica;fontStyle=1" value="âœ“ Upload Complete" vertex="1">
+          <mxGeometry height="30" width="140" x="100" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FAFAFA;strokeColor=#BDBDBD;fontColor=#333333;" value="" vertex="1">
+          <mxGeometry height="280" width="290" x="850" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1;fontFamily=Helvetica;" value="Key Points" vertex="1">
+          <mxGeometry height="25" width="150" x="870" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-1" parent="1" style="text;html=1;strokeColor=none;fillColor=#E3F2FD;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Helvetica;spacing=4;" value="âš¡ Fast Path: Steps â‘ -â‘¥&lt;br&gt;Browser gets upload URL in ~100ms" vertex="1">
+          <mxGeometry height="40" width="250" x="870" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-2" parent="1" style="text;html=1;strokeColor=none;fillColor=#C8E6C9;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Helvetica;spacing=4;" value="í ½í³¤ Direct Upload: Step â‘¦&lt;br&gt;File goes directly to S3, not through Lambda (no 6MB limit)" vertex="1">
+          <mxGeometry height="45" width="250" x="870" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-3" parent="1" style="text;html=1;strokeColor=none;fillColor=#FFF9C4;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Helvetica;spacing=4;" value="í ½í´„ Async Processing: Steps â‘¨-â‘ª&lt;br&gt;Metadata finalized after upload completes (doesn&#39;t block user)" vertex="1">
+          <mxGeometry height="45" width="250" x="870" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-4" parent="1" style="text;html=1;strokeColor=none;fillColor=#F3E5F5;align=left;verticalAlign=top;whiteSpace=wrap;rounded=1;fontSize=10;fontFamily=Helvetica;spacing=4;" value="í ½í³Š Two-Phase Metadata:&lt;br&gt;Step â‘¤: Initial (UPLOADING)&lt;br&gt;Step â‘ª: Final (READY + size/type)" vertex="1">
+          <mxGeometry height="60" width="250" x="870" y="275" as="geometry" />
+        </mxCell>
+        <mxCell id="timing-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#F57C00;fontColor=#333333;" value="" vertex="1">
+          <mxGeometry height="80" width="290" x="850" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="timing-title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontFamily=Helvetica;" value="â±ï¸ Performance Profile" vertex="1">
+          <mxGeometry height="20" width="250" x="870" y="378" as="geometry" />
+        </mxCell>
+        <mxCell id="timing-text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontFamily=Helvetica;spacing=3;" value="â€¢ API response time: ~100-200ms&lt;br&gt;â€¢ Upload speed: Network-limited (direct to S3)&lt;br&gt;â€¢ Metadata finalization: ~50-100ms (async)" vertex="1">
+          <mxGeometry height="40" width="250" x="870" y="403" as="geometry" />
+        </mxCell>
+        <mxCell id="alt-box" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F5FE;strokeColor=#0277BD;fontColor=#333333;" value="" vertex="1">
+          <mxGeometry height="80" width="290" x="850" y="470" as="geometry" />
+        </mxCell>
+        <mxCell id="alt-title" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=11;fontStyle=1;fontFamily=Helvetica;" value="Alternative: CLI/SDK Upload" vertex="1">
+          <mxGeometry height="20" width="250" x="870" y="478" as="geometry" />
+        </mxCell>
+        <mxCell id="alt-text" parent="1" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;fontFamily=Helvetica;spacing=3;" value="AWS CLI can upload directly to S3 using credentials, then same async processing (steps â‘¨-â‘ª) occurs automatically" vertex="1">
+          <mxGeometry height="40" width="250" x="870" y="503" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
