@@ -127,6 +127,17 @@
         <mxCell id="m0q5SxgStXVIgy6gznHV-80" parent="m0q5SxgStXVIgy6gznHV-7" style="text;whiteSpace=wrap;html=1;" value="Direct AWS SDK access" vertex="1">
           <mxGeometry height="40" width="160" x="52" y="159" as="geometry" />
         </mxCell>
+        <mxCell id="m0q5SxgStXVIgy6gznHV-56" edge="1" parent="m0q5SxgStXVIgy6gznHV-7" style="endArrow=classic;html=1;rounded=0;targetPerimeterSpacing=0;" value="">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="503.5" y="454" as="sourcePoint" />
+            <mxPoint x="176.5" y="454" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="m0q5SxgStXVIgy6gznHV-57" connectable="0" parent="m0q5SxgStXVIgy6gznHV-56" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" value="Pre-signed URL" vertex="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-98" as="offset" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="m0q5SxgStXVIgy6gznHV-22" parent="1" style="swimlane;html=1;fillColor=#e1d5e7;whiteSpace=wrap;startSize=20;strokeColor=#9673a6;container=0;" value="API Layer" vertex="1">
           <mxGeometry height="354" width="560" x="345" y="286" as="geometry" />
         </mxCell>
@@ -204,17 +215,6 @@
         <mxCell id="dkMRUO2zmpWDkazOFKgR-7" connectable="0" parent="m0q5SxgStXVIgy6gznHV-81" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="PUT object&amp;nbsp;&lt;div&gt;(via pre-signed URL)&lt;/div&gt;" vertex="1">
           <mxGeometry relative="1" x="0.177" y="-4" as="geometry">
             <mxPoint x="-309" y="175" as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="m0q5SxgStXVIgy6gznHV-56" edge="1" parent="1" source="qxru_o2jCTyXFSMCl1RS-20" style="endArrow=classic;html=1;rounded=0;entryX=1.028;entryY=0.635;entryDx=0;entryDy=0;entryPerimeter=0;" target="m0q5SxgStXVIgy6gznHV-75" value="">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="540" y="560" as="sourcePoint" />
-            <mxPoint x="210" y="559.9959744779583" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="m0q5SxgStXVIgy6gznHV-57" connectable="0" parent="m0q5SxgStXVIgy6gznHV-56" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" value="Pre-signed URL" vertex="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-98" as="offset" />
           </mxGeometry>
         </mxCell>
       </root>
