@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="29.1.0">
   <diagram name="Page-1" id="taUvlbe6vV1p2VbLVLVY">
-    <mxGraphModel dx="1188" dy="648" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1426" dy="777" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -104,7 +104,7 @@
         <mxCell id="m0q5SxgStXVIgy6gznHV-6" parent="m0q5SxgStXVIgy6gznHV-7" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#232F3E;fillColor=#ffffff;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.mobile_client;" value="Mobile client" vertex="1">
           <mxGeometry height="60" width="60" x="85" y="308" as="geometry" />
         </mxCell>
-        <mxCell id="oAiKFNHmmYElkrtPLmaA-8" parent="m0q5SxgStXVIgy6gznHV-7" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#ffffff;fillColor=#232F3E;dashed=0;verticalLabelPosition=middle;verticalAlign=bottom;align=center;html=1;whiteSpace=wrap;fontSize=10;fontStyle=1;spacing=3;shape=mxgraph.aws4.productIcon;prIcon=mxgraph.aws4.command_line_interface;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="&lt;font style=&quot;font-size: 12px;&quot;&gt;AWS CLI&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;Admin Only&lt;/font&gt;&lt;/div&gt;" vertex="1">
+        <mxCell id="oAiKFNHmmYElkrtPLmaA-8" parent="m0q5SxgStXVIgy6gznHV-7" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;strokeColor=#ffffff;fillColor=#232F3E;dashed=0;verticalLabelPosition=middle;verticalAlign=bottom;align=center;html=1;whiteSpace=wrap;fontSize=10;fontStyle=1;spacing=3;shape=mxgraph.aws4.productIcon;prIcon=mxgraph.aws4.command_line_interface;movable=1;resizable=1;rotatable=1;deletable=1;editable=1;locked=0;connectable=1;" value="&lt;font style=&quot;font-size: 12px; font-weight: normal;&quot;&gt;AWS CLI&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px; font-weight: normal;&quot;&gt;Admin Only&lt;/font&gt;&lt;/div&gt;" vertex="1">
           <mxGeometry height="110" width="80" x="80" y="40" as="geometry" />
         </mxCell>
         <mxCell id="oAiKFNHmmYElkrtPLmaA-2" parent="m0q5SxgStXVIgy6gznHV-7" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#434445;aspect=fixed;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.vvd.web_browser;" value="" vertex="1">
@@ -125,7 +125,7 @@
           <mxGeometry height="40" width="110" x="60" y="507" as="geometry" />
         </mxCell>
         <mxCell id="m0q5SxgStXVIgy6gznHV-80" parent="m0q5SxgStXVIgy6gznHV-7" style="text;whiteSpace=wrap;html=1;" value="Direct AWS SDK access" vertex="1">
-          <mxGeometry height="40" width="160" x="50" y="155" as="geometry" />
+          <mxGeometry height="40" width="160" x="52" y="159" as="geometry" />
         </mxCell>
         <mxCell id="m0q5SxgStXVIgy6gznHV-22" parent="1" style="swimlane;html=1;fillColor=#e1d5e7;whiteSpace=wrap;startSize=20;strokeColor=#9673a6;container=0;" value="API Layer" vertex="1">
           <mxGeometry height="354" width="560" x="345" y="286" as="geometry" />
