@@ -125,7 +125,7 @@
           <mxGeometry height="40" width="110" x="60" y="507" as="geometry" />
         </mxCell>
         <mxCell id="m0q5SxgStXVIgy6gznHV-80" parent="m0q5SxgStXVIgy6gznHV-7" style="text;whiteSpace=wrap;html=1;" value="Direct AWS SDK access" vertex="1">
-          <mxGeometry height="40" width="160" x="35" y="155" as="geometry" />
+          <mxGeometry height="40" width="160" x="50" y="155" as="geometry" />
         </mxCell>
         <mxCell id="m0q5SxgStXVIgy6gznHV-22" parent="1" style="swimlane;html=1;fillColor=#e1d5e7;whiteSpace=wrap;startSize=20;strokeColor=#9673a6;container=0;" value="API Layer" vertex="1">
           <mxGeometry height="354" width="560" x="345" y="286" as="geometry" />
