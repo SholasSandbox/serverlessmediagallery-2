@@ -112,8 +112,8 @@
         </mxCell>
         <mxCell id="qxru_o2jCTyXFSMCl1RS-52" edge="1" parent="m0q5SxgStXVIgy6gznHV-7" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;entryPerimeter=0;">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="176.5" y="361.83953488372094" as="sourcePoint" />
-            <mxPoint x="335" y="361" as="targetPoint" />
+            <mxPoint x="176.5" y="369.83953488372094" as="sourcePoint" />
+            <mxPoint x="335" y="369" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="qxru_o2jCTyXFSMCl1RS-53" connectable="0" parent="qxru_o2jCTyXFSMCl1RS-52" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="HTTPS" vertex="1">
@@ -130,10 +130,10 @@
         <mxCell id="m0q5SxgStXVIgy6gznHV-22" parent="1" style="swimlane;html=1;fillColor=#e1d5e7;whiteSpace=wrap;startSize=20;strokeColor=#9673a6;container=0;" value="API Layer" vertex="1">
           <mxGeometry height="354" width="560" x="345" y="286" as="geometry" />
         </mxCell>
-        <mxCell id="qxru_o2jCTyXFSMCl1RS-22" edge="1" parent="m0q5SxgStXVIgy6gznHV-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="qxru_o2jCTyXFSMCl1RS-20">
+        <mxCell id="qxru_o2jCTyXFSMCl1RS-22" edge="1" parent="m0q5SxgStXVIgy6gznHV-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="98" y="180.78999999999996" as="sourcePoint" />
-            <mxPoint x="241" y="216.28999999999996" as="targetPoint" />
+            <mxPoint x="98" y="186.78999999999996" as="sourcePoint" />
+            <mxPoint x="241.00000000000023" y="238.28999999999996" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="oAiKFNHmmYElkrtPLmaA-1" connectable="0" parent="qxru_o2jCTyXFSMCl1RS-22" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Text" vertex="1">
@@ -188,17 +188,17 @@
         <mxCell id="m0q5SxgStXVIgy6gznHV-78" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=1" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Serverless Media Gallery&lt;/font&gt;" vertex="1">
           <mxGeometry height="30" width="174" x="534" y="674" as="geometry" />
         </mxCell>
-        <mxCell id="m0q5SxgStXVIgy6gznHV-81" edge="1" parent="1" source="m0q5SxgStXVIgy6gznHV-75" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+        <mxCell id="m0q5SxgStXVIgy6gznHV-81" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="303" y="440" />
-              <mxPoint x="303" y="237" />
-              <mxPoint x="740" y="240" />
-              <mxPoint x="923" y="237" />
-              <mxPoint x="923" y="207" />
+              <mxPoint x="303" y="439" />
+              <mxPoint x="303" y="236" />
+              <mxPoint x="740" y="239" />
+              <mxPoint x="923" y="236" />
+              <mxPoint x="923" y="206" />
             </Array>
-            <mxPoint x="210" y="440" as="sourcePoint" />
-            <mxPoint x="996.5" y="207" as="targetPoint" />
+            <mxPoint x="216.5" y="439" as="sourcePoint" />
+            <mxPoint x="996.5" y="206" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="dkMRUO2zmpWDkazOFKgR-7" connectable="0" parent="m0q5SxgStXVIgy6gznHV-81" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="PUT object&amp;nbsp;&lt;div&gt;(via pre-signed URL)&lt;/div&gt;" vertex="1">
