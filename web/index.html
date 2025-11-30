@@ -134,6 +134,89 @@
       font-size: 15px;
       font-weight: 600;
     }
+    /* Footer */
+    .footer {
+      margin-top: 40px;
+      background: linear-gradient(135deg, #0f172a, #15294b);
+      color: #e9edf9;
+      border-radius: 18px 18px 0 0;
+      padding: 28px 28px 20px;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.2fr 3fr;
+      gap: 36px;
+      align-items: start;
+      flex-wrap: wrap;
+    }
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .footer-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      font-size: 18px;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+    .footer-select {
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.12);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.2);
+      font-weight: 600;
+      color: #f4f6ff;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 24px;
+    }
+    .footer h4 {
+      margin: 0 0 8px 0;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .footer a {
+      color: #e9edf9;
+      text-decoration: none;
+      font-size: 12.5px;
+    }
+    .footer a:hover { text-decoration: underline; }
+    .footer-bottom {
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,0.16);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+    .footer-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
   </style>
 </head>
 <body>
@@ -179,6 +262,64 @@
         <div id="lightboxBody"></div>
       </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">OE</div>
+          <div class="footer-select">United Kingdom ▾</div>
+        </div>
+        <div class="footer-grid">
+          <div>
+            <h4>Content</h4>
+            <ul>
+              <li><a href="#">Images</a></li>
+              <li><a href="#">Video</a></li>
+              <li><a href="#">Editorial</a></li>
+              <li><a href="#">Archive</a></li>
+              <li><a href="#">Custom Content</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Solutions</h4>
+            <ul>
+              <li><a href="#">Overview</a></li>
+              <li><a href="#">Plans & pricing</a></li>
+              <li><a href="#">Premium access</a></li>
+              <li><a href="#">Assignments</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Tools & Services</h4>
+            <ul>
+              <li><a href="#">Media Manager</a></li>
+              <li><a href="#">API Integration</a></li>
+              <li><a href="#">Plugins & extensions</a></li>
+              <li><a href="#">Trends & insights</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Newsroom</a></li>
+              <li><a href="#">Help center</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2025 Olusola Olabode Enterprises</div>
+        <div class="footer-links">
+          <a href="#">Website terms</a>
+          <a href="#">Privacy</a>
+          <a href="#">Legal</a>
+          <a href="#">Sitemap</a>
+        </div>
+      </div>
+    </footer>
   </div>
 
 <script>
