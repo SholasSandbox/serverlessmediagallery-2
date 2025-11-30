@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Serverless Media Gallery</title>
+  <style>
+    :root {
+      --bg: #f5f6fa;
+      --panel: #ffffff;
+      --panel-2: #f9fbff;
+      --accent: #1f5bff;
+      --accent-2: #46c893;
+      --muted: #5f6b7a;
+      --text: #0f172a;
+      --border: #e4e7ec;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      margin: 0;
+      background: linear-gradient(180deg, #e8f2dc 0%, #f5f6fa 35%, #ffffff 100%);
+      color: var(--text);
+      min-height: 100vh;
+    }
+    .shell { max-width: 1200px; margin: 0 auto; padding: 24px 24px 48px; }
+    h1 { margin: 0 0 6px 0; font-size: 30px; letter-spacing: 0.2px; }
+    .sub { color: var(--muted); margin: 0 0 14px 0; }
+    .hero {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 26px;
+      box-shadow: 0 16px 50px rgba(0,0,0,0.08);
+      margin-bottom: 18px;
+      background-image: linear-gradient(135deg, rgba(31,91,255,0.05), rgba(70,200,147,0.05));
+    }
+    .hero-row { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+    .search-box {
+      flex:1; display:flex; align-items:center;
+      background:#fff; border:1px solid var(--border); border-radius:14px; padding:12px 14px;
+      box-shadow: inset 0 1px 0 rgba(0,0,0,0.02);
+      min-width: 260px;
+    }
+    .search-box input { flex:1; background:transparent; border:0; color:var(--text); outline:none; font-size: 15px; }
+    .search-box svg { width:18px; height:18px; color:var(--muted); margin-right:10px; }
+    .toolbar { display: flex; gap: 10px; align-items: center; }
+    button { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; border: 0; padding: 10px 16px; border-radius: 10px; cursor: pointer; font-weight: 700; letter-spacing: 0.2px; box-shadow: 0 12px 30px rgba(31,91,255,0.14); }
+    button.secondary { background: #ffffff; color: var(--text); border: 1px solid var(--border); box-shadow: none; }
+    .link-btn { background: transparent; color: var(--muted); border: none; padding: 0; box-shadow: none; font-weight: 600; }
+    input[type="file"] { padding: 10px; background:#fff; border:1px dashed var(--border); border-radius:10px; color:#374151; }
+    .msg { margin-top:12px; padding:12px; background:var(--panel); border:1px solid var(--border); border-radius:12px; color:var(--muted); }
+    .grid { margin-top:18px; display:grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap:16px; }
+    .card { position:relative; overflow:hidden; background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:14px; display:flex; flex-direction:column; gap:8px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); }
+    .media-frame {
+      width: 100%;
+      height: 230px;
+      border-radius: 12px;
+      background: #1e293b;
+      object-fit: cover;
+      display: block;
+    }
+    .placeholder {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#cbd5e1;
+      font-weight:600;
+      letter-spacing:0.2px;
+    }
+    .key { font-size:12px; color:#5f6b7a; word-break:break-all; }
+    .badges { display:flex; gap:6px; flex-wrap:wrap;}
+    .badge { font-size:12px; padding:2px 8px; border-radius:999px; background:#f1f5f9; color:#334155; border:1px solid var(--border); }
+    .badge.ready { background:#e0f7ed; color:#0f5132; }
+    .badge.uploading { background:#fff4e5; color:#8a4b16; }
+    .meta { font-size:13px; color:#334155; }
+    .small { font-size:12px; color:#5f6b7a; }
+    .meta-wrap {
+      display: none;
+    }
+    .meta-wrap .badges { margin-bottom:6px; }
+    .meta-wrap .badges .badge { border-color: rgba(255,255,255,0.25); color:#e2e8f0; background: rgba(255,255,255,0.12); }
+    .meta-wrap .meta-title,
+    .meta-wrap .small,
+    .meta-wrap .key,
+    .meta-wrap a { color:#e2e8f0; }
+    .meta-wrap .key { color:#cbd5e1; }
+    a { color:#1f5bff; text-decoration:none; }
+    .count { color: var(--muted); margin-top: 10px; font-size: 13px; }
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 50;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-panel {
+      background: #0b1224;
+      border-radius: 16px;
+      padding: 12px;
+      max-width: 90vw;
+      max-height: 90vh;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .lightbox media {
+      max-width: 100%;
+      max-height: 80vh;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.1);
+      color: #e2e8f0;
+      border: 0;
+      border-radius: 999px;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .lightbox-title {
+      color: #e2e8f0;
+      margin: 0 36px 0 0;
+      font-size: 15px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="hero">
+      <h1>Serverless Media Gallery with AWS Rekognition</h1>
+      <div class="hero-row">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="16.65" y1="16.65" x2="21" y2="21"></line>
+          </svg>
+          <input id="searchInput" type="text" placeholder="Search by labels or filename…" />
+        </div>
+        <div class="toolbar">
+          <button id="refreshBtn" class="secondary">Refresh list</button>
+        </div>
+      </div>
+      <div style="margin-top:8px;">
+        <button id="toggleUpload" class="link-btn">Uploader</button>
+      </div>
+    </div>
+
+    <div id="uploader" class="msg" style="display:none;">
+      <div class="controls">
+        <input id="fileInput" type="file" accept="image/*,video/*" />
+        <button id="uploadBtn">Upload</button>
+      </div>
+      <div class="small" style="margin-top:6px;">Uploads accept image/video; other types are filtered.</div>
+    </div>
+
+    <div id="message" class="msg small">Ready. Use search to filter by labels or filename.</div>
+
+    <div id="grid" class="grid"></div>
+    <div style="margin-top:12px; text-align:center;">
+      <button id="showMoreBtn" class="secondary">Show next 10 items</button>
+    </div>
+
+    <div id="lightbox" class="lightbox">
+      <div class="lightbox-panel">
+        <button id="lightboxClose" class="lightbox-close" aria-label="Close">&times;</button>
+        <h3 id="lightboxTitle" class="lightbox-title"></h3>
+        <div id="lightboxBody"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  // ✅ Paste your real endpoints here
+  
+  // Use relative endpoints so the page works behind CloudFront
+  const PRESIGN_ENDPOINT = "/presign";
+  const MEDIA_LIST_ENDPOINT = "/media";
+  const SIGNED_URL_ENDPOINT = "/signed-url";
+
+console.log("PRESIGN_ENDPOINT:", PRESIGN_ENDPOINT);
+console.log("SIGNED_URL_ENDPOINT:", SIGNED_URL_ENDPOINT);
+console.log("MEDIA_LIST_ENDPOINT:", MEDIA_LIST_ENDPOINT);
+
+  const fileInput = document.getElementById("fileInput");
+  const uploadBtn = document.getElementById("uploadBtn");
+  const refreshBtn = document.getElementById("refreshBtn");
+  const toggleUpload = document.getElementById("toggleUpload");
+  const searchInput = document.getElementById("searchInput");
+  const uploader = document.getElementById("uploader");
+  const message = document.getElementById("message");
+  const grid = document.getElementById("grid");
+  const showMoreBtn = document.getElementById("showMoreBtn");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxBody = document.getElementById("lightboxBody");
+  const lightboxTitle = document.getElementById("lightboxTitle");
+  const lightboxClose = document.getElementById("lightboxClose");
+  let currentSearch = "";
+  let allItems = [];
+  let visibleCount = 0;
+  const INITIAL_BATCH = 15;
+  const BATCH_SIZE = 10;
+  const MIN_VALID_BYTES = 1500; // below this, treat as invalid media preview
+  const urlCache = new Map(); // key -> Promise<string|null>
+
+  function setMsg(text) {
+    message.textContent = text;
+  }
+
+  function fmtBytes(n) {
+    if (!n && n !== 0) return "—";
+    const units = ["B","KB","MB","GB"];
+    let i=0, v=n;
+    while (v >= 1024 && i < units.length-1) { v/=1024; i++; }
+    return `${v.toFixed(1)} ${units[i]}`;
+  }
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  const placeholderHtml = `<div class="media-frame placeholder">Preview unavailable</div>`;
+
+  function openLightbox(title, url, contentType) {
+    if (!url) return;
+    lightboxTitle.textContent = title || "";
+    const isVideo = (contentType || "").startsWith("video/");
+    lightboxBody.innerHTML = isVideo
+      ? `<video src="${url}" style="max-width:100%; max-height:80vh; border-radius:10px;" controls autoplay playsinline></video>`
+      : `<img src="${url}" alt="${title || ""}" style="max-width:100%; max-height:80vh; border-radius:10px;" />`;
+    lightbox.classList.add("open");
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove("open");
+    lightboxBody.innerHTML = "";
+  }
+
+  async function fetchSignedUrl(objectKey, force = false) {
+    if (!force && urlCache.has(objectKey)) {
+      return urlCache.get(objectKey);
+    }
+
+    const attempt = async () => {
+      try {
+        const res = await fetch(`${SIGNED_URL_ENDPOINT}?key=${encodeURIComponent(objectKey)}`);
+        if (!res.ok) throw new Error(`Signed URL ${res.status}`);
+        const j = await res.json();
+        return j.viewUrl || null;
+      } catch (err) {
+        return null;
+      }
+    };
+
+    const promise = (async () => {
+      let url = await attempt();
+      if (!url) {
+        // brief retry
+        url = await attempt();
+      }
+      // only cache successful URL; if null, drop so future attempts can retry
+      if (!url) {
+        urlCache.delete(objectKey);
+      }
+      return url;
+    })();
+
+    urlCache.set(objectKey, promise);
+    return promise;
+  }
+
+  async function renderGrid() {
+    grid.innerHTML = "";
+    const slice = allItems.slice(0, visibleCount);
+
+    for (const it of slice) {
+  const status = (it.status || "").toUpperCase();
+  const badgeClass = status === "READY" ? "ready" : (status === "UPLOADING" ? "uploading" : "");
+
+  // Skip tiny/likely-invalid objects to avoid churn
+  const isTiny = typeof it.fileSize === "number" && it.fileSize > 0 && it.fileSize < MIN_VALID_BYTES;
+
+  // ✅ 1) Call GET /signed-url?key=<objectKey> (with small retry + cache) unless tiny
+  let viewUrl = null;
+  if (!isTiny) {
+    viewUrl = await fetchSignedUrl(it.objectKey);
+  } else {
+    urlCache.set(it.objectKey, Promise.resolve(null));
+  }
+
+  const card = document.createElement("div");
+  card.className = "card";
+  card.dataset.url = viewUrl || "";
+  card.dataset.contentType = it.contentType || "";
+  card.dataset.title = it.filename || it.objectKey || "";
+
+  // ✅ 2) Render media (image or video)
+  const isVideo = (it.contentType || "").startsWith("video/");
+  const mediaBlock = viewUrl ? (isVideo
+    ? `
+      <video
+        src="${viewUrl}"
+        type="${it.contentType || "video/mp4"}"
+        class="media-frame"
+        muted
+        playsinline
+        loop
+        controls
+        preload="metadata"
+      ></video>
+    `
+    : `<img src="${viewUrl}" class="media-frame" loading="lazy" />`)
+    : placeholderHtml;
+
+  const linkBlock = viewUrl
+    ? `<a href="${viewUrl}" target="_blank" rel="noopener" class="small">Open media</a>`
+    : `<div class="small">Signed URL unavailable</div>`;
+
+  card.innerHTML = `
+    ${mediaBlock}
+    <div class="meta-wrap">
+      <div class="meta-title"><strong>${it.filename || it.objectKey}</strong></div>
+      <div class="key">${it.objectKey}</div>
+      <div class="badges">
+        <span class="badge ${badgeClass}">${status || "UNKNOWN"}</span>
+        <span class="badge">${it.contentType || "type?"}</span>
+        <span class="badge">${fmtBytes(it.fileSize)}</span>
+      </div>
+      ${Array.isArray(it.labels) && it.labels.length
+        ? `<div class="badges" style="margin-top:4px;">${it.labels.slice(0,5).map(l => `<span class="badge">${l}</span>`).join("")}</div>`
+        : ""
+      }
+      <div class="small">created: ${it.createdAt || "—"}</div>
+      <div class="small">processed: ${it.processedAt || "—"}</div>
+      <div style="margin-top:6px;">${linkBlock}</div>
+    </div>
+  `;
+
+  // Fallback for video load errors: replace with a simple link
+  if (isVideo && viewUrl) {
+    const vid = card.querySelector("video");
+    if (vid) {
+      vid.onerror = () => {
+        vid.replaceWith(document.createElement("div"));
+      };
+    }
+  }
+
+  grid.appendChild(card);
+
+  // Fallbacks: if media fails, try to refetch a fresh signed URL once; then placeholder
+  if (isVideo) {
+    const vid = card.querySelector("video");
+    if (vid) {
+      vid.onerror = async () => {
+        const freshUrl = await fetchSignedUrl(it.objectKey, true);
+        if (freshUrl) {
+          vid.src = freshUrl;
+          vid.load();
+        } else {
+          vid.replaceWith(document.createRange().createContextualFragment(placeholderHtml));
+        }
+      };
+    }
+  } else {
+    // Fallback for image load errors: replace with a placeholder
+    const img = card.querySelector("img");
+    if (img) {
+      img.onerror = async () => {
+        const freshUrl = isTiny ? null : await fetchSignedUrl(it.objectKey, true);
+        if (freshUrl) {
+          img.src = freshUrl;
+        } else {
+          img.replaceWith(document.createRange().createContextualFragment(placeholderHtml));
+        }
+      };
+    }
+  }
+
+  // Click to open lightbox (avoid hijacking anchor clicks)
+  card.addEventListener("click", (e) => {
+    if (e.target.closest("a")) return;
+    const url = card.dataset.url;
+    if (!url) return;
+    openLightbox(card.dataset.title, url, card.dataset.contentType);
+  });
+}
+
+    if (allItems.length === 0) {
+      setMsg("No media yet.");
+    } else {
+      setMsg(`Loaded ${visibleCount} of ${allItems.length} items.`);
+    }
+
+    showMoreBtn.style.display = visibleCount < allItems.length ? "inline-block" : "none";
+  }
+
+  async function loadMedia() {
+    setMsg("Loading media...");
+    grid.innerHTML = "";
+    showMoreBtn.style.display = "none";
+    try {
+      const searchParam = currentSearch ? `?search=${encodeURIComponent(currentSearch)}` : "";
+      const res = await fetch(MEDIA_LIST_ENDPOINT + searchParam);
+      const data = await res.json();
+      const items = Array.isArray(data) ? data : (data.Items || []);
+      console.log("Normalized items:", items);
+
+      if (!Array.isArray(items) || items.length === 0) {
+        allItems = [];
+        visibleCount = 0;
+        renderGrid();
+        return;
+      }
+
+      allItems = shuffle([...items]);
+      visibleCount = Math.min(INITIAL_BATCH, allItems.length);
+      await renderGrid();
+    } catch (e) {
+      console.error(e);
+      setMsg("Failed to load media. Check CORS / endpoint.");
+    }
+  }
+
+  async function uploadFile() {
+    const file = fileInput.files[0];
+    if (!file) {
+      setMsg("Pick a file first.");
+      return;
+    }
+
+    setMsg(`Requesting presigned URL for ${file.name}...`);
+
+    // 1) get presigned URL
+    const presignRes = await fetch(PRESIGN_ENDPOINT, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        filename: file.name,
+        contentType: file.type || "application/octet-stream"
+      })
+    });
+
+    if (!presignRes.ok) {
+      const txt = await presignRes.text();
+      throw new Error(`Presign failed: ${txt}`);
+    }
+
+    const { uploadUrl, objectKey } = await presignRes.json();
+
+    setMsg("Uploading to S3...");
+
+    // 2) PUT to S3 using presigned URL
+    const putRes = await fetch(uploadUrl, {
+      method: "PUT",
+      headers: {"Content-Type": file.type},
+      body: file
+    });
+
+    if (!putRes.ok) {
+      const txt = await putRes.text();
+      throw new Error(`S3 upload failed: ${txt}`);
+    }
+
+    setMsg(`Upload complete for ${objectKey}. Waiting for processor...`);
+
+    // refresh list after a short delay (processor usually quick)
+    setTimeout(loadMedia, 2500);
+  }
+
+  uploadBtn.addEventListener("click", () => {
+    uploadFile().catch(err => {
+      console.error(err);
+      setMsg(err.message);
+    });
+  });
+
+  refreshBtn.addEventListener("click", loadMedia);
+
+  toggleUpload.addEventListener("click", () => {
+    const isHidden = uploader.style.display === "none";
+    uploader.style.display = isHidden ? "block" : "none";
+    toggleUpload.textContent = isHidden ? "Hide uploader" : "Show uploader";
+  });
+
+  showMoreBtn.addEventListener("click", async () => {
+    visibleCount = Math.min(allItems.length, visibleCount + BATCH_SIZE);
+    await renderGrid();
+  });
+
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
+  });
+
+  // search handlers
+  let searchTimer = null;
+  searchInput.addEventListener("input", () => {
+    if (searchTimer) clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      currentSearch = searchInput.value.trim();
+      loadMedia();
+    }, 300);
+  });
+  searchInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      currentSearch = searchInput.value.trim();
+      loadMedia();
+    }
+  });
+
+  // initial load
+  loadMedia();
+</script>
+
+</body>
+</html>
