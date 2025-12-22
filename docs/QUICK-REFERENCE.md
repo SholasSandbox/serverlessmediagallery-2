@@ -2,6 +2,13 @@
 
 ## 🚀 Day 1-3 Commands (In Order)
 
+### Custom Domain Checklist (CloudFront + Route 53)
+- Current: alias `media-gallery.mixidility.com` is on distribution `d1gozkixyrngl8.cloudfront.net` with cert `arn:aws:acm:us-east-1:464975959576:certificate/e7fdcdb7-0b5b-44cf-b300-fc63abd96fcb`.
+- Cert in us-east-1 issued: `aws acm describe-certificate --region us-east-1 --certificate-arn arn:aws:acm:us-east-1:464975959576:certificate/e7fdcdb7-0b5b-44cf-b300-fc63abd96fcb --query "Certificate.Status"`
+- Deploy routing stack (new distribution + DNS): `aws cloudformation deploy --region eu-west-2 --stack-name media-gallery-routing --template-file CloudFormation/media-gallery-routing.yml --capabilities CAPABILITY_NAMED_IAM --parameter-overrides HostedZoneId=Z0023584LDIJZCOHES5A GalleryFqdn=media-gallery.mixidility.com OriginBucketName=media-gallery-mixidility.com AcmCertificateArnUsEast1=arn:aws:acm:us-east-1:464975959576:certificate/e7fdcdb7-0b5b-44cf-b300-fc63abd96fcb`
+- If reusing existing distribution: add alias `media-gallery.mixidility.com` + select cert above, then create A/AAAA alias records to the distribution (HZ `Z2FDTNDATAQYW2`).
+- Verify: `dig media-gallery.mixidility.com +short` and `curl -I https://media-gallery.mixidility.com`.
+
 ### 1. Deploy Stack (2-3 minutes)
 ```bash
 aws cloudformation create-stack \
