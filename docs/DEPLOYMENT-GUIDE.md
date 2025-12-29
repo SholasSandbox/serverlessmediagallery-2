@@ -122,6 +122,82 @@ aws dynamodb get-item \
 
 ---
 
+## Custom Domain (Route 53 + CloudFront)
+
+Use this when pointing `media-gallery.mixidility.com` (or another hostname) at the CloudFront distribution.
+
+**Current state:** `media-gallery.mixidility.com` has been added as an alias on the existing distribution `d1gozkixyrngl8.cloudfront.net` using the us-east-1 cert `arn:aws:acm:us-east-1:464975959576:certificate/e7fdcdb7-0b5b-44cf-b300-fc63abd96fcb`.
+
+1. **Issue/validate cert in us-east-1 (already done for `media-gallery.mixidility.com`):**
+   ```bash
+   aws acm describe-certificate \
+     --region us-east-1 \
+     --certificate-arn arn:aws:acm:us-east-1:464975959576:certificate/e7fdcdb7-0b5b-44cf-b300-fc63abd96fcb \
+     --query "Certificate.Status"
+   # Should return "ISSUED"
+   ```
+   If status is pending, add the ACM-provided CNAME to Route 53 and wait for `ISSUED`.
+
+2. **Update/Deploy CloudFront with the alias:**
+   - Using the provided template (creates a new distribution with OAC and DNS):
+     ```bash
+     aws cloudformation deploy \
+       --region eu-west-2 \
+       --stack-name media-gallery-routing \
+       --template-file CloudFormation/media-gallery-routing.yml \
+       --capabilities CAPABILITY_NAMED_IAM \
+       --parameter-overrides \
+         HostedZoneId=Z0023584LDIJZCOHES5A \
+         GalleryFqdn=media-gallery.mixidility.com \
+         OriginBucketName=media-gallery-mixidility.com \
+         AcmCertificateArnUsEast1=arn:aws:acm:us-east-1:464975959576:certificate/e7fdcdb7-0b5b-44cf-b300-fc63abd96fcb
+     ```
+   - Or, if reusing an existing distribution, add `media-gallery.mixidility.com` to “Alternate domain names (CNAMEs)” and select the cert ARN above as the custom SSL cert.
+
+3. **Route 53 alias records (if not created by the template):**
+   ```bash
+   aws route53 change-resource-record-sets \
+     --hosted-zone-id Z0023584LDIJZCOHES5A \
+     --change-batch '{
+       "Comment": "CloudFront alias for media-gallery",
+       "Changes": [{
+         "Action": "UPSERT",
+         "ResourceRecordSet": {
+           "Name": "media-gallery.mixidility.com",
+           "Type": "A",
+           "AliasTarget": {
+             "DNSName": "d1gozkixyrngl8.cloudfront.net",
+             "HostedZoneId": "Z2FDTNDATAQYW2",
+             "EvaluateTargetHealth": false
+           }
+         }
+       },{
+         "Action": "UPSERT",
+         "ResourceRecordSet": {
+           "Name": "media-gallery.mixidility.com",
+           "Type": "AAAA",
+           "AliasTarget": {
+             "DNSName": "d1gozkixyrngl8.cloudfront.net",
+             "HostedZoneId": "Z2FDTNDATAQYW2",
+             "EvaluateTargetHealth": false
+           }
+         }
+       }]
+     }'
+   ```
+
+4. **Verify:**
+   ```bash
+   dig media-gallery.mixidility.com CNAME +short
+   # (May return the CloudFront domain)
+   curl -I https://media-gallery.mixidility.com
+
+   # Fetch homepage HTML (first lines)
+   curl -s https://media-gallery.mixidility.com -o - | head
+   ```
+
+---
+
 ## Advanced Deployment Options
 
 ### Custom Bucket Name

@@ -1,0 +1,140 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: |
+  Media Gallery - CloudFront + Route53 using private S3 origin via OAC.
+  Deploy this stack in eu-west-2; use an ACM certificate issued in us-east-1.
+
+Parameters:
+  HostedZoneId:
+    Type: String
+    Default: Z0023584LDIJZCOHES5A
+    Description: Public Route 53 hosted zone ID for mixidility.com
+
+  GalleryFqdn:
+    Type: String
+    Default: media-gallery.mixidility.com
+    Description: Fully qualified domain name for the gallery (must exist in the hosted zone)
+
+  AcmCertificateArnUsEast1:
+    Type: String
+    Description: ARN of the ACM certificate issued in us-east-1 for the gallery FQDN
+
+  OriginBucketName:
+    Type: String
+    Default: media-gallery-mixidility.com
+    Description: Private S3 bucket name for the gallery origin
+
+Rules:
+  EnforceRegion:
+    Assertions:
+      - Assert: !Equals [!Ref AWS::Region, eu-west-2]
+        AssertDescription: Stack must be deployed in eu-west-2.
+
+Resources:
+  OriginBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref OriginBucketName
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerEnforced
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VersioningConfiguration:
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+
+  OriginAccessControl:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: !Sub "${OriginBucketName}-oac"
+        Description: OAC for the private S3 origin
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Comment: !Sub "Media Gallery for ${GalleryFqdn}"
+        DefaultRootObject: index.html
+        Aliases:
+          - !Ref GalleryFqdn
+        Origins:
+          - Id: S3Origin
+            DomainName: !GetAtt OriginBucket.RegionalDomainName
+            OriginAccessControlId: !Ref OriginAccessControl
+            S3OriginConfig: {}
+        DefaultCacheBehavior:
+          TargetOriginId: S3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods: [GET, HEAD, OPTIONS]
+          CachedMethods: [GET, HEAD, OPTIONS]
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6 # Managed-CachingOptimized
+          Compress: true
+        ViewerCertificate:
+          AcmCertificateArn: !Ref AcmCertificateArnUsEast1
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+        HttpVersion: http2and3
+        PriceClass: PriceClass_100
+
+  OriginBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref OriginBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: AllowCloudFrontReadOnlyViaOAC
+            Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub "arn:aws:s3:::${OriginBucketName}/*"
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub "arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}"
+                AWS:SourceAccount: !Ref AWS::AccountId
+
+  GalleryARecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Ref GalleryFqdn
+      Type: A
+      AliasTarget:
+        DNSName: !GetAtt CloudFrontDistribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2 # CloudFront hosted zone ID
+
+  GalleryAAAARecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Ref GalleryFqdn
+      Type: AAAA
+      AliasTarget:
+        DNSName: !GetAtt CloudFrontDistribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2 # CloudFront hosted zone ID
+
+Outputs:
+  DistributionId:
+    Description: CloudFront distribution ID
+    Value: !Ref CloudFrontDistribution
+  DistributionDomainName:
+    Description: CloudFront domain name
+    Value: !GetAtt CloudFrontDistribution.DomainName
+  GalleryFqdn:
+    Description: Gallery hostname
+    Value: !Ref GalleryFqdn
+  OriginBucketName:
+    Description: S3 origin bucket name
+    Value: !Ref OriginBucketName
