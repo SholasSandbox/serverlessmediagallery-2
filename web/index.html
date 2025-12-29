@@ -44,6 +44,18 @@
     }
     .search-box input { flex:1; background:transparent; border:0; color:var(--text); outline:none; font-size: 15px; }
     .search-box svg { width:18px; height:18px; color:var(--muted); margin-right:10px; }
+    .search-clear {
+      background: transparent;
+      border: 0;
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 600;
+      padding: 4px 8px;
+      border-radius: 8px;
+      box-shadow: none;
+      margin-left: 6px;
+    }
+    .search-clear:hover { background: var(--panel-2); color: var(--text); }
     .toolbar { display: flex; gap: 10px; align-items: center; }
     button { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: white; border: 0; padding: 10px 16px; border-radius: 10px; cursor: pointer; font-weight: 700; letter-spacing: 0.2px; box-shadow: 0 12px 30px rgba(31,91,255,0.14); }
     button.secondary { background: #ffffff; color: var(--text); border: 1px solid var(--border); box-shadow: none; }
@@ -230,6 +242,7 @@
             <line x1="16.65" y1="16.65" x2="21" y2="21"></line>
           </svg>
           <input id="searchInput" type="text" placeholder="Search by labels or filename…" />
+          <button id="clearSearchBtn" class="search-clear" type="button">Clear</button>
         </div>
         <div class="toolbar">
           <button id="refreshBtn" class="secondary">Refresh list</button>
@@ -339,6 +352,7 @@ console.log("MEDIA_LIST_ENDPOINT:", MEDIA_LIST_ENDPOINT);
   const refreshBtn = document.getElementById("refreshBtn");
   const toggleUpload = document.getElementById("toggleUpload");
   const searchInput = document.getElementById("searchInput");
+  const clearSearchBtn = document.getElementById("clearSearchBtn");
   const uploader = document.getElementById("uploader");
   const message = document.getElementById("message");
   const grid = document.getElementById("grid");
@@ -357,6 +371,11 @@ console.log("MEDIA_LIST_ENDPOINT:", MEDIA_LIST_ENDPOINT);
 
   function setMsg(text) {
     message.textContent = text;
+  }
+
+  function updateClearVisibility() {
+    const hasValue = searchInput.value.trim().length > 0;
+    clearSearchBtn.style.visibility = hasValue ? "visible" : "hidden";
   }
 
   function fmtBytes(n) {
@@ -660,6 +679,7 @@ console.log("MEDIA_LIST_ENDPOINT:", MEDIA_LIST_ENDPOINT);
       currentSearch = searchInput.value.trim();
       loadMedia();
     }, 300);
+    updateClearVisibility();
   });
   searchInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
@@ -667,8 +687,17 @@ console.log("MEDIA_LIST_ENDPOINT:", MEDIA_LIST_ENDPOINT);
       loadMedia();
     }
   });
+  clearSearchBtn.addEventListener("click", () => {
+    if (searchTimer) clearTimeout(searchTimer);
+    searchInput.value = "";
+    currentSearch = "";
+    updateClearVisibility();
+    loadMedia();
+    searchInput.focus();
+  });
 
   // initial load
+  updateClearVisibility();
   loadMedia();
 </script>
 
